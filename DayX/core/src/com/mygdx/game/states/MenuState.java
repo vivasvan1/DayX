@@ -8,7 +8,7 @@ import com.mygdx.game.dayx;
 
 public class MenuState extends state{
 
-    Texture Playbtn;
+    private Texture Playbtn;
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
