@@ -10,9 +10,9 @@ public class bullet {
     private Vector2 velocity;
     private Texture texture;
 
-    public bullet(int x,int y,float deg){
+    public bullet(int x,int y,float rad){
         position = new Vector2(x,y);
-        velocity = new Vector2((float) (velo*(Math.cos(Math.toRadians(deg)))), (float) (velo*(Math.sin(Math.toRadians(deg)))));
+        velocity = new Vector2((float) (velo*(Math.cos(rad))), (float) (velo*(Math.sin(rad))));
         texture = new Texture("bullet.png");
     }
 

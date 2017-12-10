@@ -3,6 +3,8 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.dayx;
 import com.mygdx.game.sprites.Dude;
@@ -26,22 +28,24 @@ class PlayState extends state{
     @Override
     protected void handleInput() {
         if(Gdx.input.justTouched()){
-            int x,y;
-            x = Gdx.input.getX();
-            y = Gdx.input.getY();
-            y = ((-1)*y + 800)/2;
-            x = x/2;
-
-            System.out.println(x);
-            System.out.println(y);
+            //System.out.println("camX = "+cam.position.x+ "camY = "+ cam.position.y);
+            Vector3 mousePos = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
+            cam.unproject(mousePos);
+            System.out.println(mousePos);
             bullcreate = true;
             bull = new bullet(70,70,90);
-            System.out.println((((cam.position.x)+cam.viewportWidth/2)/2)-bull.getTexture().getWidth()/2);
-            System.out.println(((cam.position.y)+cam.viewportHeight/2)/2);
-            bullets.add(new bullet(
-                    (int) ((((cam.position.x)+cam.viewportWidth/2)/2)-bull.getTexture().getWidth()/2),
-                    (int) (((cam.position.y)+cam.viewportHeight/2)/2),
-                    (float)Math.toDegrees(Math.atan((y-200)/(x-108)))));// bullet has 3 attribute x,y,degree at which it is launched initiallizing it with 90
+            if(mousePos.x > 120){
+                bullets.add(new bullet(
+                        (int) ((cam.viewportWidth/2)-bull.getTexture().getWidth()/2),
+                        (int) (cam.viewportHeight/2),
+                        (float) Math.atan((mousePos.y-200)/(mousePos.x-120))));// bullet has 3 attribute x,y,degree at which it is launched initiallizing it with 90
+            }
+            else{
+                bullets.add(new bullet(
+                        (int) ((cam.viewportWidth/2)-bull.getTexture().getWidth()/2),
+                        (int) (cam.viewportHeight/2),
+                        (float) ((float) (3.1415)+Math.atan((mousePos.y-200)/(mousePos.x-120)))));
+            }
         }
     }
 
